@@ -63,6 +63,10 @@ extern int master_process_id(char*);
 extern struct application_cfg* master_final_parser(char*, int);
 extern int send_file_to_agent(char *, int, char *);
 
+// struct es_tank es_pool;
+// struct application_cfg *glob_app_cfg;
+// struct adtlist app_list;
+
 /* backward compatibility */
 struct vtag_tank {
   int number;

@@ -37,9 +37,9 @@
 
 RSVP_API* theAPI = NULL;
 
-static bool end = false;
+static bool isEnd = false;
 static void exitHandler( int ) {
-	end = true;
+	isEnd = true;
 }
 
 void makeReservation( const GenericUpcallParameter& upcallPara ) {
@@ -167,7 +167,7 @@ int main( int argc, char** argv ) {
 	}
         RSVP_API::SessionId session = api.createSession( NetAddress(dstAddr), dstPort, NetAddress(srcAddr).rawAddress(), (UpcallProcedure)upcall );
 	int fd_api = api.getFileDesc();
-	while (!end) {
+	while (!isEnd) {
 		fd_set readfds;
 		FD_ZERO( &readfds );
 		FD_SET( fd_api, &readfds );

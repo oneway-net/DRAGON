@@ -1,0 +1,114 @@
+prefix = /usr/local/dragon
+exec_prefix = ${prefix}
+srcdir = .
+bindir = $(exec_prefix)/bin
+libdir = $(exec_prefix)/lib
+etcdir = $(exec_prefix)/etc
+shlibdir = $(exec_prefix)/shlib
+incdir = $(prefix)/include
+infodir = $(prefix)/info
+
+host = x86_64-unknown-linux-gnu
+
+CC = gcc
+CXX = g++
+SHARED_LD = g++ -shared
+YACC = yacc
+LEX = flex
+RANLIB = ranlib
+INSTALL = /usr/bin/install -c
+JAVAC = 
+JAVAH = 
+JAR = 
+
+OS_NAME = Linux
+
+COMPILE_FLAGS = -g -Wall -fno-threadsafe-statics
+PTHREAD_LIB = -lpthread 
+DMALLOC_INCLUDE = 
+DMALLOC_LIB = 
+NEWMAT_INCLUDE = 
+NEWMAT_LIB = 
+ALTQ_INCLUDE = 
+JAVA_INCLUDE = 
+MPLS_INCLUDE = 
+SNMP_INCLUDE = -I/usr/include
+SNMP_LIB = -L/usr/lib  -lm -lnetsnmp
+XML_INCLUDE = -I/usr/include/libxml2
+XML_LIB = -L/usr/lib -lxml2 
+MPLS_LIB = 
+
+BASE_DIR = /root/DRAGON/dragon-sw/kom-rsvp
+RSVP_BUILD_DIR = /root/DRAGON/dragon-sw/kom-rsvp
+SRC_DIR = /root/DRAGON/dragon-sw/kom-rsvp/src
+INCLUDES = $(DMALLOC_INCLUDE)\
+	$(NEWMAT_INCLUDE)\
+	$(ALTQ_INCLUDE)\
+	$(JAVA_INCLUDE)\
+	-include $(RSVP_BUILD_DIR)/RSVP_config.h\
+	$(MPLS_INCLUDE)\
+	$(SNMP_INCLUDE)\
+        $(XML_INCLUDE)\
+	-I$(INC_DIR) 
+
+LIBS =  $(DMALLOC_LIB) $(SNMP_LIB) $(XML_LIB)
+
+MAINS_LIBS = $(MPLS_LIB)
+
+MAKEFLAGS += RSVP_BUILD_DIR=$(RSVP_BUILD_DIR)
+MAKEFLAGS += @MAKEFLAGS@
+CPPFLAGS = -g
+
+CFLAGS = $(CPPFLAGS)
+CFLAGS += $(COMPILE_FLAGS)
+CFLAGS += $(INCLUDES)
+
+CXXFLAGS = $(CFLAGS)
+
+SUB_DIRS = api clients common daemon extern main
+
+BUILD_API = yes
+BUILD_JAVA_API = no
+BUILD_CLIENTS = yes
+BUILD_TG = yes
+BUILD_ACTIVE_API = no
+BUILD_TESTSUITE = no
+BUILD_NS2 = no
+
+ifeq ($(BUILD_JAVA_API),yes)
+SUB_DIRS += java
+endif
+
+NS2_DIR = 
+NS2_DIR_NS2=$(wildcard $(NS2_DIR)/ns-*)
+NS2_VERSION=$(notdir $(wildcard $(NS2_DIR)/ns-*))
+NAM_VERSION=$(notdir $(wildcard $(NS2_DIR)/nam-*))
+
+ifeq ($(BUILD_NS2),yes)
+SUB_DIRS += ns2
+INCLUDES += -I$(NS2_DIR)/include -I$(NS2_DIR_NS2) -I$(NS2_DIR_NS2)/tools \
+	-I$(NS2_DIR_NS2)/common -I$(NS2_DIR_NS2)/classifier \
+	-I$(NS2_DIR_NS2)/rsvp -I$(NS2_DIR_NS2)/mobile -I$(NS2_DIR_NS2)/apps \
+	-I$(NS2_DIR_NS2)/queue \
+	-I$(wildcard $(NS2_DIR)/tclcl-*) -I$(wildcard $(NS2_DIR)/otcl-*)
+CXXFLAGS += -DSTL_NAMESPACE=std
+endif
+
+OBJECT_DIR = $(RSVP_BUILD_DIR)/objects/$(MODULES)
+GEN_DIR = $(RSVP_BUILD_DIR)/gen/$(MODULES)
+BIN_DIR = $(RSVP_BUILD_DIR)/bin
+INC_DIR = $(RSVP_BUILD_DIR)/include
+LIB_DIR = $(RSVP_BUILD_DIR)/lib
+LIBJAVA_DIR = $(RSVP_BUILD_DIR)/libjava
+EXAMPLES_DIR = $(RSVP_BUILD_DIR)/examples
+VPATH_DIR = $(wildcard $(RSVP_BUILD_DIR)/objects/*) $(BIN_DIR) $(LIB_DIR) $(LIBJAVA_DIR)
+
+LIB_OBJECTS = $(RSVP_BUILD_DIR)/objects/common/*.o $(RSVP_BUILD_DIR)/objects/api/*.o
+DAEMON_OBJECTS = $(RSVP_BUILD_DIR)/objects/common/*.o $(RSVP_BUILD_DIR)/objects/daemon/*.o  $(RSVP_BUILD_DIR)/objects/api/RSVP_API.o
+JAVA_OBJECTS = $(RSVP_BUILD_DIR)/objects/java/*.o
+NS2_OBJECTS = $(RSVP_BUILD_DIR)/objects/ns2/*.o $(RSVP_BUILD_DIR)/objects/clients/*.o
+
+SOURCES=$(wildcard generic/*.cc) $(wildcard unix/*.cc) $(wildcard $(OS_NAME)/*.cc)
+OBJECTS=$(subst .cc,.o,$(notdir $(SOURCES)))
+CSOURCES=$(wildcard generic/*.c) $(wildcard unix/*.c) $(wildcard $(OS_NAME)/*.c)
+COBJECTS=$(subst .c,.o,$(notdir $(CSOURCES)))

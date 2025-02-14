@@ -5,14 +5,14 @@
 #include <iostream>
 #include <fstream>
 
-static bool end = false;
+static bool isEnd = false;
 static bool tick = false;
 static TimeValue period_start;
 static TimeValue period_end;
 static uint64 counter = 0;
 
 static void exitHandler( int ) {
-	end = true;
+	isEnd = true;
 }
 
 static void alarmHandler( int ) {
@@ -49,7 +49,7 @@ int main( int argc, char** argv ) {
 	it.it_value.tv_sec = period.tv_sec;
 	it.it_value.tv_usec = period.tv_usec;
 	CHECK( setitimer( ITIMER_REAL, &it, NULL ) );
-	while (!end) {
+	while (!isEnd) {
 		if (tick) {
 			getCurrentSystemTime( period_end );
 			countList.push_back( LoadInfo(uint64(double(counter) / (period_end-period_start).getFractionalValue()), period_end) );

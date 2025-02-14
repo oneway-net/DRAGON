@@ -15,6 +15,10 @@
 #include "log.h"
 #include "local_id_cfg.h"
 
+struct es_tank es_pool;
+struct application_cfg *glob_app_cfg;
+struct adtlist app_list;
+
 int master_recv_alarm = 0;
 struct res_defs all_res;
 struct res_mods all_res_mod;

@@ -798,8 +798,8 @@ void zTearRsvpResvRequest(void* api, struct _sessionParameters* para)
 	SESSION_Object session(NetAddress(para->Session_Para.destAddr.s_addr), para->Session_Para.destPort, 
 							para->Session_Para.srcAddr.s_addr); 
 	FlowDescriptorList fdList;
-	fdList.push_back( FlowDescriptor::FlowDescriptor() );
-	fdList.back().filterSpecList.push_back(FILTER_SPEC_Object::FILTER_SPEC_Object( NetAddress(para->Session_Para.srcAddr.s_addr),
+	fdList.push_back( FlowDescriptor() );
+	fdList.back().filterSpecList.push_back(FILTER_SPEC_Object( NetAddress(para->Session_Para.srcAddr.s_addr),
 									para->Session_Para.srcPort ) );
 	
 	((RSVP_API*)api)->releaseReservation(session, FF, fdList);

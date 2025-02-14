@@ -28,6 +28,6 @@ struct local_id_cfg {
   int *mems;
 };
 
-struct adtlist *glob_id_cfg_list;
+extern struct adtlist *glob_id_cfg_list;
 
 struct application_cfg* id_xml_parser(char*, int);
