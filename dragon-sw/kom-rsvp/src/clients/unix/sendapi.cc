@@ -37,9 +37,9 @@
 
 static TimeValue pathTime;
 
-static bool end = false;
+static bool isEnd = false;
 static void exitHandler( int ) {
-	end = true;
+	isEnd = true;
 }
   
 static void upcall( const GenericUpcallParameter& upcallPara ) {
@@ -189,7 +189,7 @@ int main( int argc, char** argv ) {
 	delete ssAttrib;
 	delete upLabel;
 	int fd = api.getFileDesc();
-	while (!end) {
+	while (!isEnd) {
 		fd_set readfds;
 		FD_ZERO( &readfds );
 		FD_SET( fd, &readfds );

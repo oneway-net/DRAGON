@@ -111,7 +111,7 @@ struct es_tank {
     char* tunnel;
   } es[50];
 };
-struct es_tank es_pool;
+extern struct es_tank es_pool;
 
 #define AST_DIR		"/usr/local/ast"
 #define NODE_AGENT_DIR	"/usr/local/node_agent"
@@ -180,8 +180,8 @@ struct string_syntex_check {
 	X->dest->local_id_type[0] == '\0' && \
 	X->vtag[0] == '\0')
 
-struct application_cfg *glob_app_cfg;
-struct adtlist app_list;
+extern struct application_cfg *glob_app_cfg;
+extern struct adtlist app_list;
 
 #define XML_SERVICE_DEF_FILE    "/usr/local/ast_file/service_template.xml"
 #define XML_ETHERBASIC_FILE "/usr/local/ast_file/service_template/EtherPipeBasic.xml"

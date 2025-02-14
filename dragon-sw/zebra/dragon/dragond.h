@@ -20,6 +20,8 @@
  * 02111-1307, USA.
  */
 
+#include <netinet/in.h> 
+
 #ifndef _ZEBRA_DRAGOND_H
 #define _ZEBRA_DRAGOND_H
 
@@ -590,10 +592,10 @@ struct _sessionParameters {
 	struct _Protection_Para* Protection_Para;
 };
 
-struct in_addr srcAddr; 
-u_int16_t srcPort;
-struct in_addr destAddr;	
-u_int16_t destPort;
+extern struct in_addr srcAddr; 
+extern u_int16_t srcPort;
+extern struct in_addr destAddr;	
+extern u_int16_t destPort;
 
 #define LSP_SAME_SESSION(X, Y) \
 	(X->common.Session_Para.destAddr.s_addr == Y->common.Session_Para.destAddr.s_addr \

@@ -40,6 +40,11 @@
 #include "ast_master/ast_master_ext.h"
 #include "dragon/dragond.h"
 
+struct in_addr srcAddr; 
+u_int16_t srcPort;
+struct in_addr destAddr;	
+u_int16_t destPort;
+
 /* Configuration filename and directory. */
 char config_current[] = DRAGON_DEFAULT_CONFIG;
 char config_default[] = SYSCONFDIR DRAGON_DEFAULT_CONFIG;

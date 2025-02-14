@@ -76,8 +76,8 @@ Log::debugOption Log::options[] = {
 	{ (char*)"mpls", Log::MPLS, 2 },
 	{ (char*)"ns2", Log::NS, 1 },
 	{ (char*)"short", Log::Short, 2 },
-	{ (char*)"append", Log::Append, 2 },
-	{ (char*)"all", Log::All, 2 }
+	{ (char*)"append", static_cast<uint32>(Log::Append), 2 },
+	{ (char*)"all", static_cast<uint32>(Log::All), 2 }
 };
 
 void Log::parse( const String& s, bool disable ) {

@@ -95,7 +95,7 @@ public:
 	Iterator find_or_insert_sorted( const Value& elem ) {
 		ListNode* pos = lower_bound_node( KEY_CAST elem );
 		if ( pos == this->tail() || comp( KEY_CAST elem, KEY_CAST pos->data ) )
-			return insert_elem( pos, elem );
+			return this->insert_elem( pos, elem );
 		else
 			return pos;
 	}
@@ -105,14 +105,14 @@ public:
 	}
 
 	Iterator insert_sorted( const Value& elem ) {
-		return insert_elem( lower_bound_node( KEY_CAST elem ), elem );
+		return this->insert_elem( lower_bound_node( KEY_CAST elem ), elem );
 	}
 
 	Iterator insert_unique( const Value& elem ) {
 		Iterator iter;
 		ListNode* pos = lower_bound_node( KEY_CAST elem );
 		if ( pos == this->tail() || comp( KEY_CAST elem, KEY_CAST pos->data ) )
-			iter = insert_elem( pos, elem );
+			iter = this->insert_elem( pos, elem );
 		else
 			iter = pos;
 		return iter;
@@ -121,7 +121,7 @@ public:
 	Iterator erase_key( const Key& elem ) {
 		ListNode* iter = lower_bound_node( elem );
 		if ( iter != this->tail() && !comp( elem, KEY_CAST iter->data ) )
-			return erase_node( iter );
+			return this->erase_node( iter );
 		else
 			return this->tail();
 	}
@@ -132,13 +132,13 @@ public:
 			if ( comp( KEY_CAST iter1->data, KEY_CAST iter2->data ) ) {
 				iter1 = iter1->next;
 			} else if ( comp( KEY_CAST iter2->data, KEY_CAST iter1->data ) ) {
-				insert_elem( iter1, iter2->data );
+				this->insert_elem( iter1, iter2->data );
 				iter2 = iter2->next;
 			} else {
 				iter1 = iter1->next; iter2 = iter2->next;
 			}
 		}
-		insert_range( iter1, iter2, s.tail() );
+		this->insert_range( iter1, iter2, s.tail() );
 	}
 
 };

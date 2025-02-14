@@ -110,11 +110,11 @@ public:
 	}
 	void setRelationshipFull( This* me, Other* other ) {
 		thisIter = other->Relationship1toMANY<Other,This,ThisContainer,OnEmptyDelete1>::setRelationshipHalf( me );
-		setRelationshipHalf( other );
+		this->setRelationshipHalf( other );
 	}
 	void setRelationshipFull( This* me, Other* other, const ConstIterator& position ) {
 		thisIter = other->Relationship1toMANY<Other,This,ThisContainer,OnEmptyDelete1>::setRelationshipHalf( me, position );
-		setRelationshipHalf( other );
+		this->setRelationshipHalf( other );
 	}
 	void clearRelationshipFull() {
 		if ( OnEmptyDelete1()() && this->other->Relationship1toMANY<Other,This,ThisContainer,OnEmptyDelete1>::followRelationship().size() <= 1 ) {
